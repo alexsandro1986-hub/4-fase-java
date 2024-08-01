@@ -1,5 +1,6 @@
 public class Main {
-    public static void App(String[] args){
+    public static void main(String[] args){
+       
         System.out.println("teste");
     }
 }
