@@ -29,7 +29,10 @@ public class Author {
     private Set<Book> books;
 
     // Construtores, getters e setters
-    public Author() {}
+    public Author() {
+
+        
+    }
 
     public Author(String name) {
         this.name = name;
@@ -59,6 +62,16 @@ public class Author {
     public void setBooks(Set<Book> books) {
         this.books = books;
     }
+
+    public Author(Long id, String name, Set<Book> books) {
+        this.id = id;
+        this.name = name;
+        this.books = books;
+    }
+
+
+
+    
 }
 
 
