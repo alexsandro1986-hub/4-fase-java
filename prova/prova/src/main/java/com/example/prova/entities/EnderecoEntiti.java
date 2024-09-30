@@ -2,6 +2,7 @@ package com.example.prova.entities;
 
 import java.time.LocalDate;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,7 +25,8 @@ public class EnderecoEntiti {
     
     
 
-    @OneToMany(mappedBy = "endereco")
+    @OneToMany
+    @JoinColumn(name = "id_vendedor")
     private List<VendedorEntiti> vendedor;
 
 
@@ -107,7 +109,7 @@ public class EnderecoEntiti {
 
 // select * from produto;
 
-
+//alter table projetos rename to produto
     
 
 }

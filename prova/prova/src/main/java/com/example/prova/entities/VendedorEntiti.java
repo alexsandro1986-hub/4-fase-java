@@ -5,8 +5,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Column;
 import jakarta.persistence.GenerationType;
+import java.util.List;
 
 @Entity
 public class VendedorEntiti {
@@ -17,14 +20,16 @@ public class VendedorEntiti {
     private Long id;
 
     
-    @Column(name = "nomecompleto")
+    @Column(name = "nome")
     private String nome;
     
     private String cpf;
 
-    @ManyToOne
-    @JoinColumn(name = "fk_endereco_id")
+    @OneToOne(mappedBy = "vendedor")    
     private EnderecoEntiti endereco;
+
+    @OneToMany(mappedBy = "vendedor")
+    private List<ProdutoEntiti> projetos;
 
     public Long getId() {
         return id;
