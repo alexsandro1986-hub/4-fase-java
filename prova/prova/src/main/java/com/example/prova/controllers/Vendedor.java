@@ -29,18 +29,4 @@ public class Vendedor {
         return vendedorRepositori.save(vendedor);
     }
 
-    // @PostMapping("/endereco")
-    // public Endereco createEndereco(@RequestBody Endereco endereco) {
-    //     return enderecoRepositori.save(endereco);
-    // }
-
-    // @GetMapping("/persons/{id}")
-    // public Person getPerson(@PathVariable Long id) {
-    //     return personRepository.findById(id).orElse(null);
-    // }
-
-    // @GetMapping("/addresses/{id}")
-    // public Address getAddress(@PathVariable Long id) {
-    //     return addressRepository.findById(id).orElse(null);
-    // }
 }

@@ -22,8 +22,8 @@ public class VendedorEntiti {
     
     private String cpf;
 
-    @JoinColumn(name = "fk_endereco_id")
     @ManyToOne
+    @JoinColumn(name = "fk_endereco_id")
     private EnderecoEntiti endereco;
 
     public Long getId() {

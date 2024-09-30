@@ -14,79 +14,99 @@ public class EnderecoEntiti {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_endereco")
-    private Long id;
-
-    @Column(name = "nome")
+    
+    @Column(name = "rua")
     private String name;
-    @Column(name = "cpf")
-    private String cpf;
-    @Column(name = "celular")
-    private String phone;
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "data_nascimento")
-    private LocalDate birthDate;
+    @Column(name = "numero")
+    private String numero;
+    @Column(name = "cidade")
+    private String cidade;
+    
+    
 
     @OneToMany(mappedBy = "endereco")
-    private List<VendedorEntiti> endereco;
+    private List<VendedorEntiti> vendedor;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
     }
 
+
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getCpf() {
-        return cpf;
+
+
+    public String getNumero() {
+        return numero;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+
+
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
-    public String getPhone() {
-        return phone;
+
+
+    public String getCidade() {
+        return cidade;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 
-    public String getEmail() {
-        return email;
+    public List<VendedorEntiti> getVendedor() {
+        return vendedor;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+
+
+    public void setVendedor(List<VendedorEntiti> vendedor) {
+        this.vendedor = vendedor;
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
+    
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
+    
 
-    public List<VendedorEntiti> getEndereco() {
-        return endereco;
-    }
+   
 
-    public void setEndereco(List<VendedorEntiti> endereco) {
-        this.endereco = endereco;
-    }
+
+
+//     create table "vendedor" (
+// 	"id" serial primary key,
+// 	"nome" text not null,
+// 	"cpf" text not null
+// );
+
+// select * from vendedor;
+
+// create table "endereco" (
+// 	"rua" text not null,
+// 	"numero" text not null,
+// 	"cidade" text not null,
+// 	"id_vendedor" integer unique references vendedor(id)
+// );
+
+// select * from endereco;
+
+// create table "produto" (
+// 	"id" serial primary key,
+// 	"nome" text not null,
+// 	"descricao" text not null,
+// 	"id_produto" integer references vendedor(id)
+// );
+
+// select * from produto;
+
 
     
 
