@@ -4,32 +4,36 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Column;
 import jakarta.persistence.GenerationType;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class VendedorEntiti {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_conta")
     private Long id;
 
-    
     @Column(name = "nome")
     private String nome;
-    
+
+    @Column(name = "cpf")
     private String cpf;
 
-    @OneToOne(mappedBy = "vendedor")    
+    @OneToOne
+    @JoinColumn(name = "id_endereco")
     private EnderecoEntiti endereco;
 
     @OneToMany(mappedBy = "vendedor")
-    private List<ProdutoEntiti> projetos;
+    @JsonManagedReference
+    private List<ProdutoEntiti> produtos;
 
     public Long getId() {
         return id;
@@ -63,6 +67,13 @@ public class VendedorEntiti {
         this.endereco = endereco;
     }
 
+    public List<ProdutoEntiti> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<ProdutoEntiti> produtos) {
+        this.produtos = produtos;
+    }
 
     
 

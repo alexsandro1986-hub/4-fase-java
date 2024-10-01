@@ -1,18 +1,36 @@
 package com.example.prova.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import java.util.List;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
 
 @Entity
 public class ProdutoEntiti {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @Column(name = "nome")
     private String nome;
+    
+    @Column(name = "preco")
+    private Float preco;
+
+    @Column(name = "descricao")
+    private String descricao;
+    
+    @ManyToOne
+    @JoinColumn(name = "id_vendedor")
+    @JsonIgnore
+    private VendedorEntiti vendedor;
+
     public Long getId() {
         return id;
     }
@@ -45,17 +63,14 @@ public class ProdutoEntiti {
         this.descricao = descricao;
     }
 
-    public List<VendedorEntiti> getVendedor() {
+    public VendedorEntiti getVendedor() {
         return vendedor;
     }
 
-    public void setVendedor(List<VendedorEntiti> vendedor) {
+    public void setVendedor(VendedorEntiti vendedor) {
         this.vendedor = vendedor;
     }
 
-    private Float preco;
-    private String descricao;
+   
 
-    @OneToMany(mappedBy = "produto")
-    private List<VendedorEntiti> vendedor;
 }
