@@ -1,7 +1,7 @@
 package com.example.prova.entities;
 
+// Importando anotações do Jakarta Persistence para a definição da entidade e mapeamento ORM.
 import jakarta.persistence.Id;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,25 +9,31 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Entity;
 import java.util.List;
 
+// Anotação que indica que esta classe é uma entidade e será mapeada para a tabela "endereco".
 @Entity(name = "endereco")
 public class EnderecoEntiti {
 
+    // Anotação que indica que este campo é a chave primária da entidade.
     @Id
+    // Anotação que indica que o valor da chave primária será gerado automaticamente.
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
+    // Anotação que mapeia este campo para a coluna "id" na tabela.
     @Column(name = "id")
     private Long id;
 
+    // Mapeamento do campo "rua" para a coluna correspondente na tabela "endereco".
     @Column(name = "rua")
     private String rua;
 
+    // Mapeamento do campo "numero" para a coluna correspondente na tabela "endereco".
     @Column(name = "numero")
     private String numero;
 
+    // Mapeamento do campo "cidade" para a coluna correspondente na tabela "endereco".
     @Column(name = "cidade")
     private String cidade;
 
-    
+    // Métodos getters e setters para acessar e modificar os campos da classe.
 
     public Long getId() {
         return id;
@@ -61,9 +67,7 @@ public class EnderecoEntiti {
         this.cidade = cidade;
     }
 
-   
-
-    
+    // Comentários de SQL para a criação das tabelas no banco de dados.
     // CREATE TABLE endereco (
     //     id SERIAL PRIMARY KEY,
     //     rua TEXT NOT NULL,
@@ -76,7 +80,6 @@ public class EnderecoEntiti {
     //     cpf TEXT NOT NULL,
     //     id_endereco INTEGER REFERENCES endereco(id)
     // );
-    
     
     // CREATE TABLE produto (
     //     id SERIAL PRIMARY KEY,

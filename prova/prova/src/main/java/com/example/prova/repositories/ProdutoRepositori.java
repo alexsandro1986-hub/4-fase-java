@@ -1,11 +1,15 @@
 package com.example.prova.repositories;
 
+// Importação das classes necessárias do Spring Data JPA.
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+// Importação da entidade ProdutoEntiti.
 import com.example.prova.entities.ProdutoEntiti;
 
+// Anotação que indica que esta interface é um repositório Spring.
 @Repository
-public interface ProdutoRepositori  extends JpaRepository<ProdutoEntiti, Long>{
-    
+// Interface que estende JpaRepository, permitindo operações CRUD para a entidade ProdutoEntiti.
+public interface ProdutoRepositori extends JpaRepository<ProdutoEntiti, Long> {
+    // JpaRepository já fornece implementações padrão para métodos como save, findAll, findById, etc.
 }
