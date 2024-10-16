@@ -11,7 +11,7 @@ public class CreateVendedorDTO {
 
     private CreateEnderecoDTO endereco;
 
-    private List<CreateProdutoDTO> produto;
+    private List<CreateProdutoDTO> produtos;
 
     public Long getId() {
         return id;
@@ -23,6 +23,14 @@ public class CreateVendedorDTO {
 
     public String getNome() {
         return nome;
+    }
+
+    public List<CreateProdutoDTO> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<CreateProdutoDTO> produtos) {
+        this.produtos = produtos;
     }
 
     public void setNome(String nome) {
@@ -45,13 +53,7 @@ public class CreateVendedorDTO {
         this.endereco = endereco;
     }
 
-    public List<CreateProdutoDTO> getProduto() {
-        return produto;
-    }
-
-    public void setProduto(List<CreateProdutoDTO> produto) {
-        this.produto = produto;
-    }
+   
 
     
 

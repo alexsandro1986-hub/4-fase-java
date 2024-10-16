@@ -20,6 +20,8 @@ public class ShowVendedorDTO {
         return id;
     }
 
+    
+
     public void setId(Long id) {
         this.id = id;
     }

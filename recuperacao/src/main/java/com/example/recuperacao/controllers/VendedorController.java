@@ -27,9 +27,11 @@ public class VendedorController {
     System.out.println(dto.getEndereco().getCidade());
     System.out.println(dto.getEndereco().getNumero());
     System.out.println(dto.getEndereco().getRua());
-    System.out.println(dto.getProduto().get(0).getNome());
-    System.out.println(dto.getProduto().get(0).getPreco());
-    
+    System.out.println(dto.getProdutos().get(0).getNome());
+    System.out.println(dto.getProdutos().get(0).getPreco());
+    System.out.println(dto.getProdutos().get(1).getNome());
+    System.out.println(dto.getProdutos().get(1).getPreco());
+
         vendedorService.createvendedor(dto);
 
         return ResponseEntity.status(201).build();

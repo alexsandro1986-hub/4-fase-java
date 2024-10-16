@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.senai.revisao.dtos.req.ChangeFuncionarioDTO;
 import com.senai.revisao.dtos.req.CreateFuncionarioDTO;
 import com.senai.revisao.dtos.req.CreateProjetoDTO;
 import com.senai.revisao.dtos.res.ShowDepartamentoDTO;
@@ -15,9 +16,18 @@ import com.senai.revisao.dtos.res.ShowProjetoDTO;
 import com.senai.revisao.entities.DepartamentoEntity;
 import com.senai.revisao.entities.FuncionarioEntity;
 import com.senai.revisao.entities.ProjetoEntity;
+import com.senai.revisao.enums.EstadoCivil;
+import com.senai.revisao.models.Basquete;
+import com.senai.revisao.models.Departamento;
+import com.senai.revisao.models.Funcionario;
+import com.senai.revisao.models.Futebol;
+import com.senai.revisao.models.Projeto;
+import com.senai.revisao.models.Volei;
 import com.senai.revisao.repositories.DepartamentoRepository;
 import com.senai.revisao.repositories.FuncionarioRepository;
 import com.senai.revisao.repositories.ProjetoRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class FuncionarioService {
@@ -31,6 +41,7 @@ public class FuncionarioService {
     @Autowired
     ProjetoRepository projetoRepository;
 
+    @Transactional
     public void createFuncionario(CreateFuncionarioDTO dto) {
 
         FuncionarioEntity funcionarioEntity = new FuncionarioEntity();
@@ -90,52 +101,90 @@ public class FuncionarioService {
                 }).toList();
     }
 
-    public ShowFuncionarioDTO getFuncionarioById(long id) {
-        Optional<FuncionarioEntity> OptionalFuncionarioEntity = funcionarioRepository.findById(id);
+    public Funcionario getFuncionarioById(long id) {
 
-        if (OptionalFuncionarioEntity.isEmpty()) {
+        Optional<FuncionarioEntity> optionalFuncionarioEntity = funcionarioRepository.findById(id);
 
+        if (optionalFuncionarioEntity.isEmpty()) {
+            // jogar uma excecao
         }
 
-        FuncionarioEntity funcionarioEntity = OptionalFuncionarioEntity.get();
+        FuncionarioEntity funcionarioEntity = optionalFuncionarioEntity.get();
 
-        ShowFuncionarioDTO dto = new ShowFuncionarioDTO();
-        dto.setId(funcionarioEntity.getId());
-        dto.setEmail(funcionarioEntity.getEmail());
-        dto.setNome(funcionarioEntity.getNome());
+        Funcionario funcionario = new Funcionario();
 
-        ShowDepartamentoDTO departamentoDTO = new ShowDepartamentoDTO();
-        departamentoDTO.setNome(funcionarioEntity.getDepartamento().getNome());
-        departamentoDTO.setGerente(funcionarioEntity.getDepartamento().getGerente());
+        funcionario.setId(funcionarioEntity.getId());
+        funcionario.setNome(funcionarioEntity.getNome());
+        funcionario.setEmail(funcionarioEntity.getEmail());
 
-        dto.setDepartamento(departamentoDTO);
+        EstadoCivil estadoCivil = EstadoCivil.valueOf(funcionarioEntity.getEstadoCivil());
 
-        return dto;
+        funcionario.setEstadoCivil(estadoCivil);
+
+        Departamento departamento = new Departamento();
+        departamento.setNome(funcionarioEntity.getDepartamento().getNome());
+        departamento.setGerente(funcionarioEntity.getDepartamento().getGerente());
+
+        funcionario.setDepartamento(departamento);
+
+        for (ProjetoEntity entity : funcionarioEntity.getProjetos()) {
+            Projeto projeto = null;
+
+            if (entity.getTipo().equals("FUTEBOL")) {
+                projeto = new Futebol();
+            }
+
+            if (entity.getTipo().equals("VOLEI")) {
+                projeto = new Volei();
+            }
+
+            if (entity.getTipo().equals("BASQUETE")) {
+                projeto = new Basquete();
+            }
+
+            projeto.setNome(entity.getNome());
+            projeto.setDescricao(entity.getDescricao());
+
+            funcionario.setProjeto(projeto);
+        }
+
+        return funcionario;
+    }
+
+    @Transactional
+    public void deleteFuncionarioById(long id) {
+
+        Optional<FuncionarioEntity> optionalFuncionarioEntity = funcionarioRepository.findById(id);
+
+        if (optionalFuncionarioEntity.isEmpty()) {
+            // jogar uma excecao
+        }
+
+        FuncionarioEntity funcionarioEntity = optionalFuncionarioEntity.get();
+
+        if (funcionarioEntity.getProjetos().isEmpty()) {
+            funcionarioRepository.deleteById(id);
+        } else {
+            // throw new deletableException();
+        }
 
     }
 
-    // public void deleteFuncionarioById(long id){
+    @Transactional
+    public void changeFuncionarioInfosById(long id, ChangeFuncionarioDTO dto) {
 
-    //     Optional<FuncionarioEntity> OptionalFuncionarioEntity = funcionarioRepository.findById(id);
-    //     if (OptionalFuncionarioEntity.isEmpty()) {
+        Optional<FuncionarioEntity> optionalFuncionarioEntity = funcionarioRepository.findById(id);
 
-    //     }
+        if (optionalFuncionarioEntity.isEmpty()) {
+            // jogar uma excecao
+        }
 
-    //     FuncionarioEntity funcionarioEntity = OptionalFuncionarioEntity.get();
+        FuncionarioEntity funcionarioEntity = optionalFuncionarioEntity.get();
 
-    //     if ( funcionarioEntity.getProjetos().isEmpty()) {
-    //         funcionarioRepository.deleteById(id);
-    //     }else{
+        funcionarioEntity.setNome(dto.getNome());
+        funcionarioEntity.setEstadoCivil(dto.getEstadoCivil());
 
-
-
-    //     }
-    //     //throw new 
-
-
-
-
-        
-    // }
+        funcionarioRepository.save(funcionarioEntity);
+    }
 
 }

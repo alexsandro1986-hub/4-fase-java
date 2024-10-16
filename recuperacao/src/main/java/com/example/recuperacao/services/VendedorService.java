@@ -50,7 +50,7 @@ public class VendedorService {
 
         List<ProdutoEntity> produtosEntity = new ArrayList<>();
 
-        for (CreateProdutoDTO produtoDTO : dto.getProduto()){
+        for (CreateProdutoDTO produtoDTO : dto.getProdutos()){
             ProdutoEntity produtoEntity = new ProdutoEntity();
             produtoEntity.setNome(produtoDTO.getNome());
             produtoEntity.setPreco(produtoDTO.getPreco());
