@@ -1,16 +1,10 @@
-package com.example.recuperacao.dtos.res;
+package com.senai.revisao.dtos.req;
 
-
-
-public class ShowProdutoDTO {
-   
+public class CreateProjetoDTO {
 
     private String nome;
-    
-    private String preco;
     private String tipo;
-
-
+    private String descricao;
 
     public String getNome() {
         return nome;
@@ -20,12 +14,12 @@ public class ShowProdutoDTO {
         this.nome = nome;
     }
 
-    public String getPreco() {
-        return preco;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setPreco(String preco) {
-        this.preco = preco;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public String getTipo() {
@@ -35,7 +29,4 @@ public class ShowProdutoDTO {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-
-
-    
 }

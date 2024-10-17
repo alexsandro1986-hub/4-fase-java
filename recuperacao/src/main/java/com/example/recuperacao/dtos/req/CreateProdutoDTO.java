@@ -4,6 +4,9 @@ public class CreateProdutoDTO {
     private String nome;
     
     private String preco;
+    private String tipo;
+
+    
 
     public String getNome() {
         return nome;
@@ -19,6 +22,14 @@ public class CreateProdutoDTO {
 
     public void setPreco(String preco) {
         this.preco = preco;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
 

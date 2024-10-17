@@ -1,39 +1,26 @@
-package com.example.recuperacao.dtos.res;
+package com.example.recuperacao.modeles;
 
+import com.example.recuperacao.interfaces.IProduto;
 
-
-public class ShowProdutoDTO {
-   
-
-    private String nome;
+public abstract class Produto  implements IProduto {
+    protected final double comissao = 10;
     
+    
+    private String nome;
     private String preco;
-    private String tipo;
-
-
-
+    
+    
     public String getNome() {
         return nome;
     }
-
     public void setNome(String nome) {
         this.nome = nome;
     }
-
     public String getPreco() {
         return preco;
     }
-
     public void setPreco(String preco) {
         this.preco = preco;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
 

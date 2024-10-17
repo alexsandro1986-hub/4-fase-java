@@ -1,7 +1,9 @@
 package com.example.recuperacao.services;
 
+import java.lang.StackWalker.Option;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ import com.example.recuperacao.dtos.res.ShowVendedorDTO;
 import com.example.recuperacao.entities.EnderecoEntity;
 import com.example.recuperacao.entities.ProdutoEntity;
 import com.example.recuperacao.entities.VendedorEntity;
+import com.example.recuperacao.modeles.Produto;
+import com.example.recuperacao.modeles.Vendedor;
 import com.example.recuperacao.repositories.Enderecorepository;
 import com.example.recuperacao.repositories.ProdutoRepository;
 import com.example.recuperacao.repositories.VendedorRepository;
@@ -79,6 +83,8 @@ public class VendedorService {
                     ShowProdutoDTO produtoDTO = new ShowProdutoDTO();
                     produtoDTO.setNome(produtoEntity.getNome());
                     produtoDTO.setPreco(produtoEntity.getPreco());
+                    produtoDTO.setTipo(produtoEntity.getTipo());
+
                     produtosDTO.add(produtoDTO); // Adiciona o cliente ao DTO
                 }
             }
@@ -99,5 +105,27 @@ public class VendedorService {
             return vendedorDTO;
         }).toList();
     }
+
+    public Vendedor getVendedorById(long id){
+        Optional<VendedorEntity>  optionalVendedorEntity = vendedorRepository.findById(id);
+        
+
+        if (optionalVendedorEntity.isEmpty()){
+
+        }
+
+        VendedorEntity vendedorEntity = optionalVendedorEntity.get();
+
+        Vendedor vendedor = new Vendedor();
+       
+        vendedor.setNome(vendedorEntity.getNome());
+        vendedor.setCpf(vendedorEntity.getCpf());
+
+        Produto produto = new Produto();
+
+        
+    }
+
+
 
 }

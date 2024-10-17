@@ -1,4 +1,4 @@
-package com.example.recuperacao.entities;
+package com.senai.revisao.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -7,31 +7,26 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-@Entity(name = "produto")
-public class ProdutoEntity {
+
+@Entity(name = "projetos")
+public class ProjetoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "nome")
     private String nome;
-    @Column(name = "preco")
-    private String preco;
+
+    @Column(name = "descricao")
+    private String descricao;
 
     @Column(name = "tipo")
     private String tipo;
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
     @ManyToOne
-    @JoinColumn(name = "id_vendedor")
-    private VendedorEntity vendedor;
+    @JoinColumn(name = "id_funcionario")
+    private FuncionarioEntity funcionario;
 
     public Long getId() {
         return id;
@@ -49,22 +44,27 @@ public class ProdutoEntity {
         this.nome = nome;
     }
 
-    public String getPreco() {
-        return preco;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setPreco(String preco) {
-        this.preco = preco;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public VendedorEntity getVendedor() {
-        return vendedor;
+    public FuncionarioEntity getFuncionario() {
+        return funcionario;
     }
 
-    public void setVendedor(VendedorEntity vendedor) {
-        this.vendedor = vendedor;
+    public void setFuncionario(FuncionarioEntity funcionario) {
+        this.funcionario = funcionario;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
 
-    
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 }

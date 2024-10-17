@@ -15,11 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.senai.revisao.dtos.req.ChangeFuncionarioDTO;
 import com.senai.revisao.dtos.req.CreateFuncionarioDTO;
+import com.senai.revisao.dtos.req.CreateProjetoDTO;
 import com.senai.revisao.dtos.res.ShowDepartamentoDTO;
 import com.senai.revisao.dtos.res.ShowFuncionarioDTO;
 import com.senai.revisao.dtos.res.ShowProjetoDTO;
+import com.senai.revisao.models.Basquete;
+import com.senai.revisao.models.Departamento;
 import com.senai.revisao.models.Funcionario;
+import com.senai.revisao.models.Futebol;
 import com.senai.revisao.models.Projeto;
+import com.senai.revisao.models.Volei;
 import com.senai.revisao.services.FuncionarioService;
 import com.senai.revisao.services.ProjetoService;
 
@@ -40,12 +45,37 @@ public class FuncionarioController {
         System.out.println(dto.getDepartamento().getNome());
         System.out.println(dto.getProjetos().get(0).getNome());
 
+        Funcionario funcionario = new Funcionario();
+        // funcionario.setId(0);
+        funcionario.setNome(dto.getNome());
+        funcionario.setEmail(dto.getEmail());
 
-        
+        Departamento departamento = new Departamento();
+        departamento.setNome(dto.getDepartamento().getNome());
+        departamento.setGerente(dto.getDepartamento().getGerente());
 
+        funcionario.setDepartamento(departamento);
 
+        for (CreateProjetoDTO projetoDTO : dto.getProjetos()) {
+            Projeto projeto = null;
 
-        funcionarioService.createFuncionario(dto);
+            if (projetoDTO.getTipo().equals("BASQUETE")) {
+                projeto = new Basquete();
+            } else if (projetoDTO.getTipo().equals("FUTEBOL")) {
+                projeto = new Futebol();
+            } else if (projetoDTO.getTipo().equals("VOLEI")) {
+                projeto = new Volei();
+            } else {
+                // jogar uma excecao
+            }
+
+            projeto.setNome(projetoDTO.getNome());
+            projeto.setDescricao(projetoDTO.getDescricao());
+
+            funcionario.setProjeto(projeto);
+        }
+
+        funcionarioService.createFuncionario(funcionario);
 
         return ResponseEntity.status(201).build();
     }
@@ -59,7 +89,7 @@ public class FuncionarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getAllFuncionarios(@PathVariable long id) {
+    public ResponseEntity<?> getFuncionario(@PathVariable long id) {
 
         System.out.println(id);
         Funcionario funcionario = funcionarioService.getFuncionarioById(id);
@@ -80,11 +110,11 @@ public class FuncionarioController {
             projetoDTO.setDescricao(projeto.getDescricao());
             projetoDTO.setRenda(projeto.calcularRendaMes(20, 1200f));
 
-            dto.setProjeto(projetoDTO);        
+            dto.setProjeto(projetoDTO);
         }
 
         dto.setDepartamento(departamentoDto);
-        
+
         return ResponseEntity.status(200).body(dto);
     }
 
