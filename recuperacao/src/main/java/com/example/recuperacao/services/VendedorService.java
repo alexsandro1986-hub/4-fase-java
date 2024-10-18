@@ -16,6 +16,7 @@ import com.example.recuperacao.dtos.res.ShowVendedorDTO;
 import com.example.recuperacao.entities.EnderecoEntity;
 import com.example.recuperacao.entities.ProdutoEntity;
 import com.example.recuperacao.entities.VendedorEntity;
+import com.example.recuperacao.modeles.Endereco;
 import com.example.recuperacao.modeles.Produto;
 import com.example.recuperacao.modeles.Vendedor;
 import com.example.recuperacao.repositories.Enderecorepository;
@@ -121,9 +122,14 @@ public class VendedorService {
         vendedor.setNome(vendedorEntity.getNome());
         vendedor.setCpf(vendedorEntity.getCpf());
 
-        Produto produto = new Produto();
+        Endereco endereco = new Endereco();
+        endereco.setCidade(vendedorEntity.getEndereco().getCidade());
+        endereco.setNumero(vendedorEntity.getEndereco().getNumero());
+        endereco.setRua(vendedorEntity.getEndereco().getRua());
 
-        
+        vendedor.setEndereco(endereco);
+
+        return vendedor;
     }
 
 
